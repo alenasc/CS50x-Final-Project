@@ -1,4 +1,6 @@
 [![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
+[![SQLite](https://img.shields.io/badge/SQLite-3.39.5-blue.svg)](https://www.sqlite.org/)
+[![Flask](https://img.shields.io/pypi/v/Flask.svg)](https://pypi.org/project/Flask/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 # 2WATCH
@@ -110,7 +112,7 @@
 │   ├── settings.html
 │   ├── title_detail.html
 │   ├── top10.html
-└───└── watchlist.html
+│   └── watchlist.html
 ```
 
 
@@ -122,7 +124,7 @@
    cd 2watch
    ```
 
-2. **Create** & activate virtualenv
+2. **Create** & activate a virtual environment
     ```bash
     python3 -m venv venv
     source venv/bin/activate    # macOS/Linux
