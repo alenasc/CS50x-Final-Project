@@ -2,6 +2,7 @@
 [![SQLite](https://img.shields.io/badge/SQLite-3.39.5-blue.svg)](https://www.sqlite.org/)
 [![Flask](https://img.shields.io/pypi/v/Flask.svg)](https://pypi.org/project/Flask/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](https://cs50x-final-project-q1yh.onrender.com/)
 
 # 2WATCH
 
