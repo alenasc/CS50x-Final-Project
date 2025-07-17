@@ -1,0 +1,31 @@
+/* menu_mobile.css - Styles for the mobile fullscreen menu */
+
+.mobile-fullscreen-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background-color: #0c0c0c;
+  padding: 30px 20px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.mobile-fullscreen-menu a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+/* Logout link specific styling */
+.mobile-fullscreen-menu a.logout {
+  color: #ff4d4d;
+}
+
+.mobile-fullscreen-menu a:hover {
+  color: #00ffff;
+}

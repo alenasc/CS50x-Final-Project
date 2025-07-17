@@ -1,0 +1,191 @@
+/* title_detail.css
+   Styles for the Title Detail page: backdrop banner, overlay, title metadata,
+   quick-rank buttons, and episode list with watched toggles. */
+
+/* Container for the entire detail view */
+.title-detail {
+  text-align: center;
+}
+
+/* Actual image inside wrapper */
+.backdrop-banner {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Backdrop banner settings */
+.backdrop-wrapper {
+  position: relative;
+  width: 100%;
+  height: 700px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+/* Overlay gradient on top of backdrop to improve text contrast */
+.backdrop-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.0));
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+/* Title text styling */
+.title-info h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+/* Metadata line (year, duration, genre, type) */
+.title-info .meta {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+/* Description paragraph styling */
+.title-info .description {
+  font-size: 13px;
+  color: #ddd;
+}
+
+/* Fallback description class (if used elsewhere) */
+.description {
+  font-size: 14px;
+  color: #555;
+}
+
+/* "Where to watch" and "Trailer" buttons container */
+.watch-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Individual watch button styling */
+.watch-btn {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.watch-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #000;
+}
+
+/* Quick-rank buttons */
+.ranking-button {
+    flex: 1 1 30%;
+    min-width: 120px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 18px;
+    margin: 12px;
+}
+
+.ranking-button.selected {
+    background-color: #732d91;
+    color: #fff;
+    font-weight: bold;
+}
+
+.ranking-button:hover {
+    background-color: #555;
+}
+
+/* Episode list container (modern style) */
+.episode-list-modern {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+/* Individual episode item styling */
+.episode-item {
+  background-color: #1a1a1a;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.episode-item label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Hide native checkbox; we use custom icon */
+.episode-item input[type="checkbox"] {
+  display: none;
+}
+
+/* Custom circle icon for checkbox */
+.check-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #888;
+  margin-right: 14px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* When episode is marked watched, style the icon and add checkmark */
+.episode-item.watched .check-icon {
+  background-color: #058f00;
+  border-color: #058f00;
+}
+
+.episode-item.watched .check-icon::after {
+  content: '✔';
+  color: #000;
+  font-size: 9px;
+  position: absolute;
+  top: 1px;
+  left: 4px;
+}
+
+/* Episode text styling */
+.ep-text {
+  font-size: 14px;
+  color: #eee;
+  flex: 1;
+}
+
+.episode-item:hover {
+  background-color: #2a2a2a;
+  border-color: #00ffff;
+}

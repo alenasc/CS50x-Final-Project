@@ -1,0 +1,65 @@
+/* finder.css - Styles for the Finder page */
+
+/* Container for the finder page */
+.finder-container {
+  text-align: center;
+  color: white;
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Main heading styling */
+.finder-container h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Description paragraph styling */
+.finder-container p {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+/* Embedded video iframe styling */
+#video-player iframe {
+  border-radius: 12px;
+  max-width: 100%;
+}
+
+/* Details section below video */
+.video-details {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+/* Video title styling */
+#video-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* Controls section (button area) */
+.finder-controls {
+  margin-top: 2rem;
+}
+
+/* Style for the "Get another one" button */
+.finder-controls button {
+  background-color: #6d28d9;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover state for button */
+.finder-controls button:hover {
+  background-color: #7c3aed;
+}

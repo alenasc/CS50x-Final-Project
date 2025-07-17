@@ -1,0 +1,238 @@
+/* layout.css - Global styles for 2WATCH layout */
+
+/* === GENERAL === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0c0c0c;
+  color: white;
+}
+
+header, footer {
+  background-color: #0c0c0c;
+  color: white;
+}
+
+main {
+  padding: 20px;
+}
+
+/* === ICON STYLES === */
+.icon {
+  font-size: 18px;
+  text-decoration: none;
+  color: #ccc;
+}
+
+.icon:hover {
+  color: #732d91;
+}
+
+/* === LOGO STYLES === */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.logo:hover {
+  text-decoration: none;
+  color: #732d91;
+}
+
+/* === HEADER LAYOUT (DESKTOP) === */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  position: relative;
+  z-index: 1000;
+}
+
+.header-left {
+  flex: 0 0 auto;
+}
+
+.nav-container {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.nav-menu a:hover {
+  color: #732d91;
+}
+
+.logout {
+  color: #ff4d4d !important;
+}
+
+/* === SEARCH (DESKTOP) === */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.search-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.search-icon-img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.search-form.active {
+  display: block;
+}
+
+.search-form {
+  display: none;
+}
+
+.search-form input[type="text"] {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  width: 180px;
+}
+
+/* === AVATAR DROPDOWN (DESKTOP) === */
+.avatar-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-small {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+#dropdownMenu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  z-index: 1001;
+  min-width: 160px;
+}
+
+#dropdownMenu a {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+
+#dropdownMenu a:hover {
+  background-color: #333;
+}
+
+#dropdownMenu .logout {
+  color: #ff4d4d;
+}
+
+/* === FOOTER STYLES === */
+footer {
+  text-align: center;
+  font-size: 12px;
+  padding: 20px;
+  color: #999;
+  margin-top: 40px;
+}
+
+/* === MOBILE STYLES === */
+.mobile-menu-button {
+  display: none;
+  font-size: 26px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  /* Hide desktop nav on mobile */
+  .nav-container {
+    display: none;
+  }
+
+  /* Show hamburger button on mobile */
+  .mobile-menu-button {
+    display: block;
+  }
+
+  /* Mobile nav panel styles (hidden by default) */
+  .nav-menu {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    background-color: #0c0c0c;
+    padding: 20px;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    border-radius: 8px;
+    display: none;
+    width: 220px;
+    z-index: 999;
+  }
+
+  /* Show mobile nav when toggled */
+  .nav-menu.show {
+    display: flex;
+  }
+
+  /* Ensure links fill panel width */
+  .nav-menu a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Smaller avatars on mobile */
+  .avatar-small {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+  }
+
+  /* Hide desktop search on mobile */
+  .search-wrapper {
+    display: none;
+  }
+}

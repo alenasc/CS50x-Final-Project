@@ -1,0 +1,292 @@
+/* home.css - Styles for the Home page: carousels and rows */
+
+/* Container for the main carousel */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 40px;
+  border-radius: 12px;
+}
+
+/* Carousel track styling */
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  transition: transform 0.5s ease;
+  width: 100%;
+  overflow: hidden;
+}
+/* Dots below carousel */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Style for each indicator dot */
+.carousel-indicators div {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #999;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Active indicator dot */
+.carousel-indicators .active {
+  background: #fff;
+}
+
+/* Individual slide within carousel */
+.carousel-slide {
+  min-width: 100%;
+  height: 600px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+/* Overlay at bottom of slide for title/text */
+.carousel-overlay {
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  color: white;
+  padding: 30px;
+  text-align: center;
+  z-index: 3;
+  margin-bottom: 100px;
+}
+
+/* Place indicators inside carousel container */
+.carousel-indicators.inside {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  padding: 6px 12px;
+  z-index: 2;
+}
+
+/* Navigation arrows for carousel */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  z-index: 3;
+  transition: background 0.2s;
+}
+
+/* Arrow hover effect */
+.carousel-arrow:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+/* Position left arrow */
+.carousel-arrow.left {
+  left: 10px;
+}
+
+/* Position right arrow */
+.carousel-arrow.right {
+  right: 10px;
+}
+
+/* --- Row Sections --- */
+.row-section {
+  margin-bottom: 40px;
+}
+
+/* Header for each row */
+.row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: white;
+}
+
+.row-header h2 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+/* Horizontal scrolling container for cards */
+.card-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 0 20px;
+  scroll-behavior: smooth;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+/* Individual card styling */
+.card {
+  max-width: 220px;
+  max-width: 220px;
+  flex-shrink: 0;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+  padding: 10px;
+  font-size: 0.9rem;
+}
+
+/* --- Discover Filter Popup --- */
+#filter-popup {
+  display: none;
+  flex-direction: column;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px 20px;
+  color: white;
+}
+
+/* Show popup when active */
+#filter-popup.active {
+  display: flex;
+}
+
+#genre-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#genre-options label {
+  background-color: #333;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Apply Filter button */
+#apply-filters {
+  margin-top: 10px;
+  padding: 10px;
+  background: #00ffff;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Wrapper for card rows to position scroll buttons */
+.card-row-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.card-row {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.card-row::-webkit-scrollbar {
+  display: none;
+}
+.card-row {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  z-index: 2;
+}
+
+.scroll-button.left {
+  left: 0;
+}
+
+.scroll-button.right {
+  right: 0;
+}
+
+/* Filter button styling */
+#filter-button {
+  background: linear-gradient(135deg, #00ffff, #007fff);
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,255,255,0.3);
+  transition: background 0.3s, transform 0.2s;
+}
+
+#filter-button:hover {
+  background: linear-gradient(135deg, #00e5ff, #006eff);
+  transform: translateY(-2px);
+}
+
+#filter-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0,255,255,0.2);
+}
+
+/* Header variation when a button is present */
+.row-header-with-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Genre select title text styling */
+.select-genre-title {
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Center genre options in popup */
+#genre-options {
+  justify-content: center;
+}

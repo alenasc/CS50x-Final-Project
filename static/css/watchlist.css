@@ -1,0 +1,172 @@
+/* === Watchlist Page Styles === */
+
+/* Page title styling */
+.page-title {
+    margin: 1rem;
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+}
+
+/* Subtitle/description text below the title */
+.watchlist-p {
+  text-align: center;
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 2rem;;
+}
+
+/* Container for all watchlist items */
+.watchlist-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+/* Individual watchlist item card */
+.watchlist-item {
+    display: flex;
+    align-items: flex-start;
+    background-color: #1c1c1c;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+}
+
+.watchlist-item:hover {
+    transform: scale(1.01);
+}
+
+/* Poster image inside each watchlist item */
+.watchlist-poster {
+    width: 120px;
+    height: 180px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* Container for title and description text */
+.watchlist-info {
+    padding: 1rem;
+    flex-grow: 1;
+    color: white;
+}
+
+.watchlist-info h3 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.watchlist-info p {
+    margin-top: 0.3rem;
+    font-size: 0.95rem;
+    color: #ccc;
+}
+
+/* Make the entire info/link area clickable */
+.watchlist-link {
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+  flex-grow: 1;
+}
+
+/* Truncate/ellipsis style on long descriptions */
+.description {
+    margin-top: 0.8rem;
+    color: #aaa;
+}
+
+/* Container for action buttons (Watched, Not Interested) */
+.watchlist-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    gap: 0.5rem;
+}
+
+/* Style for each quick-action button */
+.rank-btn {
+    padding: 0.4rem 0.8rem;
+    background-color: #474747;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 150px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rank-btn:hover {
+    background-color: #732d91;
+}
+
+/* Message shown when the watchlist is empty */
+.empty-msg {
+    text-align: center;
+    padding: 2rem;
+    color: #aaa;
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+  .watchlist-container {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .watchlist-item {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .watchlist-item .poster {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto 12px;
+    margin-top: 12px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .watchlist-item .info {
+    margin-left: 0;
+  }
+
+  .watchlist-item .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .watchlist-item .actions button {
+    width: 80%;
+    margin-bottom: 8px;
+  }
+
+  .watchlist-poster {
+    width: 250px;
+    height: 400px;
+    margin-bottom: 8px;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+  }
+
+  .watchlist-link {
+    flex-direction: column;
+    align-items: center;
+  }
+}

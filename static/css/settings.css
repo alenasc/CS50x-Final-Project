@@ -1,0 +1,103 @@
+/* settings.css - Styles for the account settings page: form layout, avatar selection, and danger states */
+
+/* Container for the settings page */
+.settings-container {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 30px;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Title of the settings page */
+.settings-title {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+
+/* Form container styling */
+.settings-form {
+  margin-bottom: 40px;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 10px;
+  align-items: center;
+  text-align: center;
+}
+
+/* Text and password inputs style */
+.settings-form input[type="text"],
+.settings-form input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0 20px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2a2a2a;
+  color: white;
+}
+
+/* Default button style for settings forms */
+.settings-form button {
+  padding: 12px 20px;
+  background-color: #00ffff;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for action buttons */
+.settings-form button:hover {
+  background-color: #00dddd;
+}
+
+/* Avatar selection option container */
+.avatar-option {
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Hide radio input itself; image acts as selector */
+.avatar-option input[type="radio"] {
+  display: none;
+}
+
+/* Avatar image styling */
+.avatar-option img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+/* When avatar input is checked, style the adjacent image */
+.avatar-option input[type="radio"]:checked + img {
+  border-color: #00ffff;
+  transform: scale(1.05);
+}
+
+/* Danger colors when deleting account */
+.settings-form.danger {
+  background-color: #2a0f0f;
+  border: 1px solid #ff4444;
+}
+
+.settings-form.danger h3 {
+  color: #ff4d4d;
+}
+
+.settings-form.danger button {
+  background-color: #ff4444;
+  color: white;
+}
+
+.settings-form.danger button:hover {
+  background-color: #cc0000;
+}

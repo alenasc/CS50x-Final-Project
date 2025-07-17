@@ -1,0 +1,155 @@
+/* search_results.css - Styles for the search results page: search bar, grid layout, cards, and responsive behavior */
+
+/* Search Bar Styles */
+.search-bar-wrapper {
+  width: 80%;
+  max-width: 800px;
+  margin: 20px auto 40px;
+  padding: 0 20px;
+}
+
+.search-bar-form {
+  display: flex;
+  align-items: center;
+  background-color: #1a1a1a;
+  border-radius: 20px;
+  padding: 6px 12px;
+  border: 1px solid #333;
+}
+
+.search-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding-right: 8px;
+}
+
+.search-icon-img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.search-bar-form input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+/* Grid of Cards */
+.row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+/* Individual Card Style */
+.card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  height: auto;
+  background-color: #222;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s;
+  object-fit: cover;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border: none;
+}
+
+/* Card Info Overlay */
+.card-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  font-size: 13px;
+}
+
+/* Quick Rank Buttons Container */
+.card-buttons {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  display: 1px;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+  height: auto;
+  width: auto;
+}
+
+.card-buttons button {
+  font-size: 11px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 75px;
+  height: 28px;
+}
+
+.card-buttons button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Form Full Height Fix */
+form {
+  position: relative;
+  height: 100%;
+}
+
+/* Selected state for rank buttons */
+.rank-btn.selected {
+  background-color: #cccccc;
+  color: #000;
+  font-weight: bold;
+}
+
+.rank-btn {
+  opacity: 0.9;;
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card {
+    height: auto;
+  }
+
+  .card-buttons {
+    display: 1px;
+    flex-direction: column;
+  }
+
+  .card-buttons button {
+    font-size: 9px;
+    width: 50px;
+    height: 20px;
+  }
+}
