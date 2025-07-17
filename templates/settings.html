@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<div class="settings-container">
+  <!-- Page heading -->
+  <h2 class="settings-title">Account Settings</h2>
+
+  <!-- Change Username Form -->
+  <form method="post" action="{{ url_for('settings') }}" class="settings-form">
+    <input type="hidden" name="form_type" value="change_username">
+    <input type="text" name="new_username" placeholder="New Username" required>
+    <button type="submit">Change Username</button>
+  </form>
+
+  <!-- Change Password Form -->
+  <form method="post" action="{{ url_for('settings') }}" class="settings-form">
+    <input type="hidden" name="form_type" value="change_password">
+    <input type="password" name="current_password" placeholder="Current Password" required>
+    <input type="password" name="new_password" placeholder="New Password" required>
+    <input type="password" name="confirm_new_password" placeholder="Confirm New Password" required>
+    <button type="submit">Change Password</button>
+  </form>
+
+  <!-- Change Avatar Form -->
+  <form method="post" action="{{ url_for('settings') }}" class="settings-form">
+    <input type="hidden" name="form_type" value="change_avatar">
+    <label for="avatar">Choose a new avatar:</label>
+    <br>
+    <div class="avatar-selection">
+    <br>
+      <!-- Dynamically list available avatar images -->
+      {% for avatar in avatars %}
+        <label class="avatar-option">
+          <input type="radio" name="avatar" value="{{ avatar }}" {% if current_user.avatar == avatar %}checked{% endif %}>
+          <img src="{{ url_for('static', filename='images/avatars/' ~ avatar) }}" alt="Avatar">
+        </label>
+      {% endfor %}
+    </div>
+    <br>
+    <!-- Submit button for avatar update -->
+    <button type="submit">Change Avatar</button>
+    <br>
+  </form>
+
+  <!-- Delete Account Form -->
+  <form method="post" action="{{ url_for('settings') }}" class="settings-form delete-form" onsubmit="return confirm('Are you sure you want to DELETE your account? This action cannot be undone.');">
+    <input type="hidden" name="form_type" value="delete_account">
+    <button type="submit" class="delete-button">Delete My Account</button>
+  </form>
+</div>
+{% endblock %}

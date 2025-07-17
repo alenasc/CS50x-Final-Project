@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="mobile-fullscreen-menu">
+    <!-- Always-visible links for primary navigation -->
+    <a href="{{ url_for('index') }}">🏠 Home</a>
+    <a href="{{ url_for('search') }}">🔎 Search</a>
+    <a href="{{ url_for('rank_page') }}">📊 Rank</a>
+    <a href="{{ url_for('watchlist') }}">🔖 Watchlist</a>
+    <a href="{{ url_for('top10_page') }}">🏆 Top 10</a>
+    <a href="{{ url_for('finder_page') }}">🎯 Finder</a>
+    {% if current_user.is_authenticated %}
+    <!-- If authenticated show logout -->
+    <a href="{{ url_for('own_profile') }}">🪪 Profile</a>
+    <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+    <a href="{{ url_for('logout') }}" class="logout">👋 Logout</a>
+    {% else %}
+        <!-- If not authenticated show login/register -->
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+</div>
+{% endblock %}

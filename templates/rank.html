@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}Rank Titles{% endblock %}
+
+{% block content %}
+<!-- Page heading and instructions -->
+<h2 class="page-title">✊ Rank Titles</h2>
+<p class="rank-p">Drag and drop the titles to rank them!</p>
+<br>
+
+<div class="tier-list">
+  <!-- Iterate through each rank tier and display its dropzone -->
+  {% for tier, titles in tier_data.items() %}
+    <div class="tier" data-rank="{{ tier }}">
+      <div class="tier-row">
+        <!-- Tier header showing the tier name with color class -->
+        <div class="tier-header {{ 'tier-color-' ~ tier|lower|replace(' ', '-') }}">{{ tier }}</div>
+        <!-- Dropzone container for this tier -->
+        <div class="tier-dropzone" id="dropzone-{{ tier|lower|replace(' ', '-') }}">
+          <!-- Display each title as a draggable card -->
+          {% for title in titles %}
+            <div class="tier-card" data-title-id="{{ title.id }}" data-media-type="{{ 'show' if title.media_type == 'tv' else title.media_type }}">
+              <img src="{{ title.poster_url }}" alt="{{ title.name }} poster">
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="save-area">
+  <!-- Button to clear all custom rankings and reload profile -->
+  <button id="save-btn">Clear and Send to Profile</button>
+</div>
+
+<!-- Include SortableJS library for drag-and-drop functionality -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Sortable on each dropzone, enabling cross-zone dragging
+    document.querySelectorAll('.tier-dropzone').forEach(dropzone => {
+      new Sortable(dropzone, {
+        group: 'tiers',
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        onAdd: evt => handleDrag(evt.item, evt.to),
+        onUpdate: evt => handleDrag(evt.item, evt.to)
+      });
+    });
+
+    // Handle when a card is moved into a dropzone
+    function handleDrag(item, toContainer) {
+      const newRank = toContainer.closest('.tier').dataset.rank;
+      const titleId = item.dataset.titleId;
+      const mediaType = item.dataset.mediaType;
+      // Send updated rank to server via POST
+      fetch('/rank/update', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({
+          title_id: titleId,
+          media_type: mediaType,
+          new_rank: newRank
+        })
+      }).catch(console.error);
+    }
+
+    // Clear button resets all tiers and reloads page
+    document.getElementById('save-btn').addEventListener('click', () => {
+      fetch('/rank/clear', { method: 'POST' })
+        .then(() => window.location.reload())
+        .catch(console.error);
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+      Main layout template for 2WATCH app.
+      Defines global header, footer, and base structure.
+    -->
+    <meta charset="UTF-8">
+    <title>2WATCH</title>
+    <!-- Responsive viewport for mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Browser Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+</head>
+<body>
+    <!-- Header: site logo, navigation, search, user menu -->
+    <header>
+        <div class="header-left">
+            <a href="{{ url_for('index') }}" class="logo">2WATCH</a>
+        </div>
+
+        <!-- Desktop navigation menu -->
+        <div class="nav-container desktop-only">
+            <nav class="nav-menu">
+                <!-- Primary page links -->
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('rank_page') }}">Rank</a>
+                <a href="{{ url_for('watchlist') }}">Watchlist</a>
+                <a href="{{ url_for('top10_page') }}">Top 10</a>
+                <a href="{{ url_for('finder_page') }}">Finder</a>
+                <!-- Search icon toggles search input -->
+                <button class="search-icon" onclick="toggleSearch()">
+                    <img src="{{ url_for('static', filename='images/search-icon.png') }}" alt="Search" class="search-icon-img">
+                </button>
+                <!-- Hidden by default, shown when search icon clicked -->
+                <div class="search-wrapper desktop-only">
+                    <form action="{{ url_for('search') }}" method="get" class="search-form" id="searchForm">
+                        <input type="text" name="q" placeholder="Search titles..." required>
+                    </form>
+                </div>
+            </nav>
+        </div>
+
+        <!-- User avatar dropdown for desktop -->
+        {% if current_user.is_authenticated %}
+        <div class="avatar-dropdown desktop-only">
+            <!-- User's avatar image triggers dropdown -->
+            <img src="{{ url_for('static', filename='images/avatars/' + current_user.avatar) if current_user.is_authenticated else url_for('static', filename='images/avatar_default.png') }}" class="avatar-small" onclick="toggleDropdown()">
+            <!-- Dropdown menu items for logged-in user -->
+            <div id="dropdownMenu">
+                <a href="{{ url_for('own_profile') }}">Profile</a>
+                <a href="{{ url_for('settings') }}">Settings</a>
+                <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+            </div>
+        </div>
+        {% else %}
+        <!-- If not authenticated, show login/register links -->
+        <div class="avatar-dropdown desktop-only">
+            <img src="{{ url_for('static', filename='images/avatars/' + current_user.avatar) if current_user.is_authenticated else url_for('static', filename='images/avatar_default.png') }}" class="avatar-small" onclick="toggleDropdown()">
+            <div id="dropdownMenu">
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            </div>
+        </div>
+        {% endif %}   
+        <!-- Mobile menu button: links to simplified menu page -->
+        <button class="mobile-menu-button mobile-only" onclick="window.location.href='{{ url_for('menu_mobile') }}'">☰</button>
+    </header>
+
+    <!-- Flash messages: feedback to user after actions -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash-messages">
+          {% for category, message in messages %}
+            <li class="flash {{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Main content block: overridden by individual page templates -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer: copyright and attribution -->
+    <footer>
+        <p>&copy; 2025 Alexandre Nasc. Harvard's CS50x Final Project. All rights reserved.</p>
+    </footer>
+
+    <!-- Global utility scripts: dropdown and search toggle -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdown = document.getElementById("dropdownMenu");
+        const form = document.getElementById("searchForm");
+
+        // Toggle visibility of profile dropdown
+        window.toggleDropdown = function () {
+            if (dropdown) {
+                dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+            }
+        };
+
+        // Toggle show/hide of search form on desktop
+        window.toggleSearch = function () {
+            const form = document.getElementById("searchForm");
+            if (form) {
+                form.classList.toggle("active");
+            }
+        };
+
+        // Hide dropdown when clicking outside
+        window.addEventListener('click', function (e) {
+            if (!e.target.closest('.avatar-dropdown') && dropdown) {
+                dropdown.style.display = "none";
+            }
+        });
+    });
+    </script>
+</body>
+</html>

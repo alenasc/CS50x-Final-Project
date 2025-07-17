@@ -1,0 +1,168 @@
+{% extends "layout.html" %}
+
+{% block title %}My Top 10{% endblock %}
+
+{% block content %}
+<!-- Page heading and subtitles -->
+<h2 class="page-title">🎩 Top 10</h2>
+<p class="page-subtitle">Search for your favorite movies and series to be featured on your profile.</p>
+<p class="page-subtitle">Drag and move the titles to change the order.</p>
+
+<!-- Search bar for adding new titles -->
+<div class="search-bar">
+  <input type="text" id="search-input" placeholder="Search titles...">
+  <!-- Autocomplete dropdown -->
+  <ul id="autocomplete-list"></ul>
+</div>
+
+<!-- Containers for the two Top 10 lists -->
+<div class="top10-container">
+  <!-- Top 10 Movies section -->
+  <div class="top10-section">
+    <h3>My Top 10 Movies</h3>
+    <div id="top10-movies" class="top10-list" data-type="movie">
+      <!-- Loop through existing movies to render cards -->
+      {% for movie in movies %}
+        <div class="top10-card" draggable="true" data-id="{{ movie.id }}">
+          <!-- Position badge -->
+          <span class="position-number">{{ loop.index }}</span>
+          <!-- Poster image -->
+          <img src="{{ movie.poster_url }}" alt="{{ movie.name }} poster">
+          <!-- Remove button -->
+          <button class="remove-btn">&times;</button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Top 10 Shows section -->
+  <div class="top10-section">
+    <h3>My Top 10 Shows</h3>
+    <div id="top10-shows" class="top10-list" data-type="show">
+      {% for show in shows %}
+        <div class="top10-card" draggable="true" data-id="{{ show.id }}">
+          <span class="position-number">{{ loop.index }}</span>
+          <img src="{{ show.poster_url }}" alt="{{ show.name }} poster">
+          <button class="remove-btn">&times;</button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Save button to persist Top 10 order -->
+<div class="save-area">
+  <button id="save-top10">Salvar Top 10</button>
+</div>
+
+ <!-- Include SortableJS from CDN for drag-and-drop -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+// References to DOM elements
+const searchInput = document.getElementById("search-input");
+const autocompleteList = document.getElementById("autocomplete-list");
+const top10Movies = document.getElementById("top10-movies");
+const top10Shows = document.getElementById("top10-shows");
+
+// Handle search input for autocomplete
+searchInput.addEventListener("input", async () => {
+  const query = searchInput.value.trim();
+  // Clear suggestions if query too short
+  if (query.length < 2) return autocompleteList.innerHTML = "";
+
+  // Fetch matching titles from backend API
+  const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+  const results = await response.json();
+
+  // Build autocomplete list items
+  autocompleteList.innerHTML = "";
+  results.forEach(item => {
+    const li = document.createElement("li");
+    li.dataset.id = item.id;
+    li.dataset.name = item.name;
+    li.dataset.mediaType = item.media_type;
+    li.dataset.posterUrl = item.poster_url;
+    li.innerHTML = `
+        <img src="${item.poster_url}" alt="${item.name} poster">
+        <span>${item.name}</span>
+    `;
+    // When clicked, add to the appropriate Top 10 list
+    li.addEventListener("click", () => {
+      addToTop10({
+        id: li.dataset.id,
+        name: li.dataset.name,
+        media_type: li.dataset.mediaType,
+        poster_url: li.dataset.posterUrl
+      });
+    });
+    autocompleteList.appendChild(li);
+  });
+});
+
+// Creates a new card for the given item and appends it to the correct container
+function addToTop10(item) {
+  const container = item.media_type === "movie" ? top10Movies : top10Shows;
+  const card = document.createElement("div");
+  card.className = "top10-card";
+  card.setAttribute("draggable", "true");
+  card.dataset.id = item.id;
+  card.innerHTML = `
+    <span class="position-number"></span>
+    <img src="${item.poster_url}" alt="${item.name} poster">
+    <button class="remove-btn">&times;</button>
+  `;
+  // Attach remove handler
+  card.querySelector(".remove-btn").addEventListener("click", () => card.remove());
+  container.appendChild(card);
+  updateCardPositions(container);
+  // Clear autocomplete and input
+  autocompleteList.innerHTML = "";
+  searchInput.value = "";
+}
+
+// Updates all .position-number badges in the given container to reflect the current order. Applies medal classes for top 3
+function updateCardPositions(container) {
+  Array.from(container.children).forEach((card, index) => {
+    const badge = card.querySelector(".position-number");
+    badge.textContent = index + 1;
+    if (index === 0) badge.className = "position-number gold";
+    else if (index === 1) badge.className = "position-number silver";
+    else if (index === 2) badge.className = "position-number bronze";
+    else badge.className = "position-number";
+  });
+}
+
+// Initialize SortableJS for both lists
+Sortable.create(top10Movies, {
+  animation: 150,
+  onEnd: () => updateCardPositions(top10Movies)
+});
+
+Sortable.create(top10Shows, {
+  animation: 150,
+  onEnd: () => updateCardPositions(top10Shows)
+});
+
+// Run on page load
+updateCardPositions(top10Movies);
+updateCardPositions(top10Shows);
+
+// Remove cards
+document.querySelectorAll(".remove-btn").forEach(btn => {
+  btn.addEventListener("click", e => e.target.closest(".top10-card").remove());
+});
+
+// Save
+const getIds = container => Array.from(container.children).map(c => c.dataset.id);
+document.getElementById("save-top10").addEventListener("click", () => {
+  const data = {
+    movies: getIds(top10Movies),
+    shows: getIds(top10Shows)
+  };
+  fetch("/top10/save", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  }).then(() => window.location.href = "/");
+});
+</script>
+{% endblock %}

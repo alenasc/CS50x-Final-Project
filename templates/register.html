@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <h2>Register</h2>
+  <!-- Registration form posts to /register (handled by Flask) -->
+  <form method="post" class="auth-form">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="password" name="confirmation" placeholder="Confirm Password" required>
+    <!-- Avatar selection section -->
+    <div class="avatar-select">
+      <p>Choose your avatar:</p>
+      <div class="avatar-options">
+        <!-- Dynamically list available avatar images -->
+        {% for avatar in avatars %}
+          <img src="{{ url_for('static', filename='images/avatars/' + avatar) }}"
+              class="avatar-option"
+              data-avatar="{{ avatar }}"
+              alt="Avatar">
+        {% endfor %}
+      </div>
+      <!-- Hidden input stores selected avatar filename for form submission -->
+      <input type="hidden" name="avatar" id="selected-avatar">
+    </div>
+    <button type="submit">Register</button>
+    <!-- Link to switch to login if user already has an account -->
+    <p class="auth-switch">Already have an account? <a href="{{ url_for('login') }}">Login here</a>.</p>
+  </form>
+</div>
+
+<!-- JavaScript to handle avatar selection UI -->
+<script>
+  // Select all avatar image elements
+  const avatarImages = document.querySelectorAll('.avatar-option');
+  const avatarInput = document.getElementById('selected-avatar');
+
+  avatarImages.forEach(img => {
+    img.addEventListener('click', () => {
+      // Remove selection highlight from all options
+      avatarImages.forEach(i => i.classList.remove('selected'));
+      // Highlight clicked avatar
+      img.classList.add('selected');
+      // Store chosen avatar filename in hidden input
+      avatarInput.value = img.dataset.avatar;
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}Watchlist{% endblock %}
+
+{% block content %}
+<!-- Page heading and subtitles -->
+<h2 class="page-title">🎬 Watchlist</h2>
+<p class="watchlist-p">Check out the titles you saved to watch later!</p>
+
+<!-- If there are saved titles, render the list; otherwise show empty message -->
+{% if titles %}
+    <div class="watchlist-container">
+        <!-- Loop through each title object in the list -->
+        {% for title in titles %}
+        <div class="watchlist-item">
+            <!-- Normalize media type -->
+            {% set fixed_type = 'tv' if title.type == 'show' else title.type %}
+            <a href="{{ url_for('title_detail', title_id=title.id, media_type=fixed_type) }}" class="watchlist-link">
+
+                <!-- Poster image -->
+                <img src="{{ title.poster_url }}" alt="{{ title.name }} Poster" class="watchlist-poster">
+
+                <!-- Title info block -->
+                <div class="watchlist-info">
+                    <h3>{{ title.name }}</h3>
+                    <p>{{ title.year }} • {{ title.genre.title() }} • {{ title.type.title() }}</p>
+                    <p class="description">{{ title.description[:180] }}...</p>
+                </div>
+            </a>
+
+            <!-- Quick action buttons -->
+            <div class="watchlist-actions">
+                <form method="post" class="rank-form" data-title-id="{{ title.id }}">
+                    <button type="button" class="rank-btn" data-rank="WATCHED">Watched</button>
+                    <button type="button" class="rank-btn" data-rank="NOT INTERESTED">Not Interested</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <!-- Message when no titles are saved -->
+    <p class="empty-msg">Your watchlist is empty. Add a few titles to start!</p>
+{% endif %}
+
+
+<!-- JavaScript to handle button clicks and POST update -->
+<script>
+document.querySelectorAll(".rank-btn").forEach(button => {
+    button.addEventListener("click", function () {
+        const form = this.closest(".rank-form");
+        const titleId = form.dataset.titleId;
+        const rank = this.dataset.rank;
+
+        // Prepare form data for POST
+        const formData = new FormData();
+        formData.append("rank", rank);
+
+        // Send update request
+        fetch(`/title/${titleId}/rank`, {
+            method: "POST",
+            body: formData,
+            credentials: "same-origin"
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "success") {
+                // Remove the item from the DOM on success
+                form.closest(".watchlist-item").remove();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

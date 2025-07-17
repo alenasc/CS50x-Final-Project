@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <!-- Page heading -->
+  <h2>Login</h2>
+  <!-- Login form posts to /login (handled by Flask) -->
+  <form method="post" class="auth-form">
+    <input type="text" name="username" placeholder="Username" required>
+    <!-- Password input: hidden characters -->
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Log In</button>
+    <!-- Link to registration page if user has no account -->
+    <p class="auth-switch">Don't have an account? <a href="{{ url_for('register') }}">Register here</a>.</p>
+  </form>
+</div>
+{% endblock %}

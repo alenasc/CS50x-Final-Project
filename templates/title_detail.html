@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ title.name }} - Details{% endblock %}
+
+{% block content %}
+<div class="title-detail">
+    <!-- Backdrop section: large banner image with dark overlay -->
+    <div class="backdrop-wrapper">
+    <!-- Full-width backdrop image -->
+    <img src="{{ title.backdrop_url }}" alt="{{ title.name }} Backdrop" class="backdrop-banner">
+    <!-- Overlay to darken the image and contain text -->
+    <div class="backdrop-overlay">
+        <div class="title-info">
+            <!-- Main title heading -->
+            <h1>{{ title.name }}</h1>
+            <!-- Metadata line: year, duration, genre, type -->
+            <p class="meta">
+                {{ title.year }} • {{ title.duration }} • {{ title.genre.title() }} • {{ title.type.title() }}
+            </p>
+            <!-- Description paragraph -->
+            <p class="description">{{ title.description }}</p>
+            <!-- Quick links to external actions -->
+            <div class="watch-buttons">
+                <!-- Link to search where to watch the title -->
+              <a href="https://www.google.com/search?q=where to watch {{ title.name }}" target="_blank" class="watch-btn">Where to watch</a>
+              <!-- Link to search for official trailer on YouTube -->
+              <a href="https://www.youtube.com/results?search_query={{ title.name }} official trailer" target="_blank" class="watch-btn">Trailer</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- User ranking section: quick buttons to set rank for this title -->
+    <div class="title-info">
+        <h3>⬇️ Your rank for this title ⬇️</h3>
+        <!-- Invisible form container; data attributes store context for JS -->
+        <form id="rank-form" data-media-type="{{ title.type }}" data-tmdb-id="{{ title.id }}" onsubmit="return false;">
+            <div class="ranking-buttons">
+                <!-- Loop over each rank to render a button -->
+                {% set ranks = [
+                    "NOT INTERESTED", "DIDN'T WATCH", 'WATCHLIST', 'WATCHING', 'WATCHED',
+                    'BAD', 'COULD BE BETTER', 'GOOD', 'GREAT', 'ABSOLUTE CINEMA'
+                ] %}
+                {% for rank in ranks %}
+                <button type="button"
+                        class="ranking-button {% if user_rank == rank %}selected{% endif %}"
+                        data-rank="{{ rank }}">
+                    {{ rank }}
+                </button>
+                {% endfor %}
+            </div>
+            </form>
+        <br>
+
+        <!-- Episode list for TV shows only -->
+        {% if episodes %}
+        <h3>Episodes</h3>
+        <!-- Form to toggle watched status; each checkbox submits with season/episode -->
+        <form method="post" action="{{ url_for('toggle_episode') }}">
+          <!-- Hidden input to pass TMDB ID -->
+          <input type="hidden" name="tmdb_id" value="{{ title.id }}">
+          <ul class="episode-list-modern">
+            {% for ep in episodes %}
+              <li class="episode-item {% if (ep.season, ep.episode) in watched_set %}watched{% endif %}">
+                <label>
+                  <!-- Checkbox for marking watched -->
+                  <input type="checkbox"
+                        name="episode_checkbox"
+                        onchange="this.form.season.value='{{ ep.season }}'; this.form.episode.value='{{ ep.episode }}'; this.form.submit();"
+                        {% if (ep.season, ep.episode) in watched_set %}checked{% endif %}>
+                  <span class="check-icon"></span>
+                  <span class="ep-text">Season {{ ep.season }} - Ep. {{ ep.episode }}: {{ ep.name }}</span>
+                </label>
+              </li>
+            {% endfor %}
+          </ul>
+          <!-- Hidden fields populated by checkbox onchange -->
+          <input type="hidden" name="season" value="">
+          <input type="hidden" name="episode" value="">
+        </form>
+
+        {% endif %}
+    </div>
+</div>
+
+<!-- JavaScript: handle quick-rank button clicks via AJAX -->
+<script>
+document.querySelectorAll(".ranking-button").forEach(button => {
+    button.addEventListener("click", () => {
+    const rank = button.dataset.rank;
+    const tmdbId = parseInt(document.getElementById("rank-form").dataset.tmdbId);
+    const mediaType = document.getElementById("rank-form").dataset.mediaType;
+
+    // Send rank update to server without reloading
+    fetch("/rank/quick", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+        title_id: tmdbId,
+        rank: rank,
+        media_type: mediaType
+        })
+    }).then(() => {
+        // Clear previous selection state
+        document.querySelectorAll(".ranking-button").forEach(btn => {
+        btn.classList.remove("selected");
+        });
+        // Mark clicked button as selected
+        button.classList.add("selected");
+    });
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="homepage">
+  <!-- Upcoming Movies Carousel -->
+  <div class="carousel-container">
+    <div class="carousel" id="carousel">
+      <!-- Insert slides dynamically -->
+    </div>
+    <!-- Navigation arrows for carousel -->
+    <button class="carousel-arrow left" id="carousel-prev">‹</button>
+    <button class="carousel-arrow right" id="carousel-next">›</button>
+    <!-- Indicators showing current slide position -->
+    <div class="carousel-indicators inside" id="carousel-indicators">
+      <!-- Indicators -->
+    </div>
+  </div>
+
+  <!-- ROW: Discover with Filters -->
+  <section class="row-section">
+    <div class="row-header row-header-with-button">
+      <h2>Discover</h2>
+      <!-- Button to toggle filter popup -->
+      <button id="filter-button">Filters</button>
+    </div>
+    <!-- Hidden filter popup for selecting genres -->
+    <div class="filter-popup" id="filter-popup">
+      <label class="select-genre-title">Select genres:</label>
+      <div id="genre-options">
+        <!-- Genre checkboxes will be dynamically added here -->
+      </div>
+      <!-- Apply button triggers re-fetch of Discover row -->
+      <button id="apply-filters">Apply</button>
+    </div>
+    <!-- Horizontal scrollable row of discover cards -->
+    <div class="card-row-wrapper">
+      <button class="scroll-button left" onclick="scrollRow('discover-container', -1)">‹</button>
+      <div class="card-row" id="discover-container">
+        <!-- Discover cards will be loaded here -->
+      </div>
+      <button class="scroll-button right" onclick="scrollRow('discover-container', 1)">›</button>
+    </div>
+  </section>
+
+  <!-- ROW: Watching -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2>Watching</h2>
+    </div>
+    <div class="card-row-wrapper">
+      <button class="scroll-button left" onclick="scrollRow('watching-container', -1)">‹</button>
+      <div class="card-row" id="watching-container">
+        <!-- Cards will be loaded here -->
+      </div>
+      <button class="scroll-button right" onclick="scrollRow('watching-container', 1)">›</button>
+    </div>
+  </section>
+
+  <!-- ROW: Popular -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2>Popular Now</h2>
+    </div>
+    <div class="card-row-wrapper">
+      <button class="scroll-button left" onclick="scrollRow('popular-container', -1)">‹</button>
+      <div class="card-row" id="popular-container">
+        <!-- Cards will be loaded here -->
+      </div>
+      <button class="scroll-button right" onclick="scrollRow('popular-container', 1)">›</button>
+    </div>
+  </section>
+
+  <!-- ROW: Now Playing -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2>Now Playing in Theaters</h2>
+    </div>
+    <div class="card-row-wrapper">
+      <button class="scroll-button left" onclick="scrollRow('nowplaying-container', -1)">‹</button>
+      <div class="card-row" id="nowplaying-container">
+        <!-- Cards will be loaded here -->
+      </div>
+      <button class="scroll-button right" onclick="scrollRow('nowplaying-container', 1)">›</button>
+    </div>
+  </section>
+
+  <!-- ROW: Watchlist -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2>Watchlist</h2>
+    </div>
+    <div class="card-row-wrapper">
+      <button class="scroll-button left" onclick="scrollRow('watchlist-container', -1)">‹</button>
+      <div class="card-row" id="watchlist-container">
+        <!-- Cards will be loaded here -->
+      </div>
+      <button class="scroll-button right" onclick="scrollRow('watchlist-container', 1)">›</button>
+    </div>
+  </section>
+</div>
+<!-- Load the script -->
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+
+  <!-- Search bar wrapper: input and submit button -->
+  <div class="search-bar-wrapper">
+    <form action="{{ url_for('search') }}" method="get" class="search-bar-form">
+      <!-- Submit button with magnifying glass icon -->
+      <button type="submit" class="search-icon-button">
+        <img src="{{ url_for('static', filename='images/search-icon.png') }}" alt="Search" class="search-icon-img">
+      </button>
+      <!-- Text input retains previous query value -->
+      <input type="text" name="q" placeholder="Search titles..." value="{{ query }}" required>
+    </form>
+  </div>
+  <br>
+  <!-- Results section: each result displayed in a card -->
+  <div class="section">
+    <div class="row">
+      {% for title in results %}
+        <!-- Normalize media_type for internal consistency -->
+        {% set fixed_type = 'show' if title.media_type == 'tv' else title.media_type %}
+        <div class="card" data-title-id="{{ title.id }}" data-media-type="{{ fixed_type }}">
+          <!-- Quick rank buttons: Watched, Watchlist, Not Interested -->
+          <div class="card-buttons">
+            {% set rank = title.user_rank %}
+            <button type="button" class="rank-btn {% if rank in ['ABSOLUTE CINEMA', 'GREAT', 'GOOD', 'COULD BE BETTER', 'BAD', 'WATCHED', 'WATCHING'] %}selected{% endif %}" data-rank="WATCHED">Watched</button>
+            <button type="button" class="rank-btn {% if rank == 'WATCHLIST' %}selected{% endif %}" data-rank="WATCHLIST">Watchlist</button>
+            <button type="button" class="rank-btn {% if rank in ["DIDN'T WATCH", 'NOT INTERESTED'] %}selected{% endif %}" data-rank="NOT INTERESTED">Not Interested</button>
+          </div>
+
+          <!-- Link to title detail page wraps image and info -->
+          <a href="{{ url_for('title_detail', title_id=title.id, media_type=title.media_type) }}" class="card-link">
+            <img src="{{ title.poster_url }}" alt="{{ title.name }}">
+            <div class="card-info">
+              <p><strong>{{ title.name }}</strong></p>
+              <p>{{ title.year }} • {{ title.media_type.title() }}</p>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+<!-- JavaScript: attach click handlers to quick rank buttons -->
+<script>
+document.querySelectorAll('.rank-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    // Find parent card and retrieve title ID, media type and rank
+    const card = button.closest('.card');
+    const tmdbId = card.dataset.titleId;
+    const mediaType = card.dataset.mediaType;
+    const rank = button.dataset.rank;
+
+    // Send rank update to server
+    fetch("/rank/quick", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        title_id: tmdbId,
+        rank: rank,
+        media_type: mediaType
+      })
+    }).then(() => {
+      // Update button selected state in UI
+      card.querySelectorAll('.rank-btn').forEach(btn => btn.classList.remove("selected"));
+      button.classList.add("selected");
+    });
+  });
+});
+</script>
+
+{% endblock %}

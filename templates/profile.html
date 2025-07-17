@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block title %}{{ user.username }}'s Profile{% endblock %}
+
+{% block content %}
+<!-- Load profile-specific stylesheet -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+
+<div class="profile-container">
+  <!-- Header: user's avatar and username, plus summary stats -->
+  <div class="profile-header">
+    <div class="avatar-username">
+      <img src="{{ url_for('static', filename='images/avatars/' + user.avatar) }}" alt="Avatar">
+      <h1>{{ user.username }}</h1>
+    </div>
+
+    <!-- Stats: count of titles per rank category -->
+    <div class="profile-stats">
+      {% for rank, count in stats.ranks.items() %}
+      <div class="stat-box">
+        <p>{{ count }}</p>
+        <h3>{{ rank }}</h3>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Complete Rank Sections: one horizontal scroll row per rank -->
+  {% for rank, titles in user_ranks.items() %}
+  <section class="row-section">
+    <div class="row-header">
+      <h2>{{ rank }}</h2>
+    </div>
+    <div class="card-row-wrapper">
+      <!-- Left scroll button for this row -->
+      <button class="scroll-button left" onclick="scrollRow('{{ rank|replace(' ', '') }}-row', -1)">‹</button>
+      <!-- Card row container: displays title posters -->
+      <div class="card-row" id="{{ rank|replace(' ', '') }}-row">
+        {% for title in titles %}
+        <div class="title-card">
+          <a href="{{ url_for('title_detail', title_id=title.tmdb_id) }}?media_type={{ title.media_type }}">
+            <img src="{{ title.poster_url }}" alt="{{ title.name }}">
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- Right scroll button for this row -->
+      <button class="scroll-button right" onclick="scrollRow('{{ rank|replace(' ', '') }}-row', 1)">›</button>
+    </div>
+  </section>
+  {% endfor %}
+
+  <!-- Top 10 Columns: vertical lists of user's top shows and movies -->
+  <div class="top2-10-columns">
+    <!-- Top 10 Shows -->
+    <div class="top2-10-column">
+      <h2>Top 10 Shows</h2>
+      <div class="top2-10-list-vertical">
+        {% for title in top10_shows %}
+        <a class="top2-10-card" href="{{ url_for('title_detail', title_id=title.tmdb_id) }}?media_type={{ title.media_type }}">
+          <!-- Display rank number from loop index -->
+          <div class="top2-10-rank">#{{ loop.index }}</div>
+          <img src="{{ title.poster_url }}" alt="{{ title.name }}">
+          <div class="top2-10-info">
+            <p>{{ title.name }}</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Top 10 Movies -->
+    <div class="top2-10-column">
+      <h2>Top 10 Movies</h2>
+      <div class="top2-10-list-vertical">
+        {% for title in top10_movies %}
+        <a class="top2-10-card" href="{{ url_for('title_detail', title_id=title.tmdb_id) }}?media_type={{ title.media_type }}">
+          <div class="top2-10-rank">#{{ loop.index }}</div>
+          <img src="{{ title.poster_url }}" alt="{{ title.name }}">
+          <div class="top2-10-info">
+            <p>{{ title.name }}</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// Function to scroll the card row left or right
+function scrollRow(rowId, direction) {
+  const row = document.getElementById(rowId);
+  const scrollAmount = 300;
+  row.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
+}
+</script>
+{% endblock %}
