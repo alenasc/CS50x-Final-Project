@@ -3,10 +3,11 @@
 [![Flask](https://img.shields.io/pypi/v/Flask.svg)](https://pypi.org/project/Flask/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](https://cs50x-final-project-q1yh.onrender.com/)
+[![Video Demo](https://img.shields.io/badge/Video%20Demo-YouTube-red?logo=youtube)](https://www.youtube.com/watch?v=-aG2pokxhwo)
 
 # 2WATCH
 
-#### Video Demo:  <URL HERE>
+#### Video Demo:  <https://www.youtube.com/watch?v=-aG2pokxhwo>
 #### Description: A social Flask app for film & TV lovers: explore upcoming releases, random scenes, build watchlists, tier‑rank titles, craft Top 10 lists and share profiles — powered by the TMDb & YouTube Data APIs.
 
 
