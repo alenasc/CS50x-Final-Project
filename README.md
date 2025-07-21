@@ -122,7 +122,7 @@
 ## 🔧 Installation
 1. **Clone** and activate a virtual environment
    ```bash
-   git clone https://github.com/YOUR-USERNAME/2watch.git
+   git clone https://github.com/alenasc/2watch.git
    cd 2watch
    ```
 
