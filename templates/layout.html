@@ -47,7 +47,7 @@
         {% if current_user.is_authenticated %}
         <div class="avatar-dropdown desktop-only">
             <!-- User's avatar image triggers dropdown -->
-            <img src="{{ url_for('static', filename='images/avatars/' + current_user.avatar) if current_user.is_authenticated else url_for('static', filename='images/avatar_default.png') }}" class="avatar-small" onclick="toggleDropdown()">
+            <img src="{{ url_for('static', filename='images/avatars/' + current_user.avatar) if current_user.is_authenticated else url_for('static', filename='images/avatars/avatar_default.png') }}" class="avatar-small" onclick="toggleDropdown()">
             <!-- Dropdown menu items for logged-in user -->
             <div id="dropdownMenu">
                 <a href="{{ url_for('own_profile') }}">Profile</a>
@@ -58,7 +58,7 @@
         {% else %}
         <!-- If not authenticated, show login/register links -->
         <div class="avatar-dropdown desktop-only">
-            <img src="{{ url_for('static', filename='images/avatars/' + current_user.avatar) if current_user.is_authenticated else url_for('static', filename='images/avatar_default.png') }}" class="avatar-small" onclick="toggleDropdown()">
+            <img src="{{ url_for('static', filename='images/avatars/' + current_user.avatar) if current_user.is_authenticated else url_for('static', filename='images/avatars/avatar_default.png') }}" class="avatar-small" onclick="toggleDropdown()">
             <div id="dropdownMenu">
                 <a href="{{ url_for('login') }}">Login</a>
                 <a href="{{ url_for('register') }}">Register</a>
