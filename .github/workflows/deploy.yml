@@ -2,3 +2,17 @@ env:
   TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
   YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
   SECRET_KEY: ${{ secrets.SECRET_KEY }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install & Deploy
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          eb init YOUR-APP --platform python-3.13
+          eb use 2watch-prod
+          eb deploy
