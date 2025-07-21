@@ -28,7 +28,7 @@
 
 
 
-## 🌟 [Overview]
+## 🌟 Overview
 
 **2WATCH** is a social Flask web app for movie & TV enthusiasts that lets you:
 
