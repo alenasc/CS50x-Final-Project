@@ -2,12 +2,13 @@
 [![SQLite](https://img.shields.io/badge/SQLite-3.39.5-blue.svg)](https://www.sqlite.org/)
 [![Flask](https://img.shields.io/pypi/v/Flask.svg)](https://pypi.org/project/Flask/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](https://cs50x-final-project-q1yh.onrender.com/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](http://54.91.90.12/)
 [![Video Demo](https://img.shields.io/badge/Video%20Demo-YouTube-red?logo=youtube)](https://www.youtube.com/watch?v=-aG2pokxhwo)
 
 # 2WATCH
 
 #### Video Demo:  <https://www.youtube.com/watch?v=-aG2pokxhwo>
+#### Live Demo: [2WATCH](http://54.91.90.12/)
 #### Description: A social Flask app for film & TV lovers: explore upcoming releases, random scenes, build watchlists, tier‑rank titles, craft Top 10 lists and share profiles — powered by the TMDb & YouTube Data APIs.
 
 
