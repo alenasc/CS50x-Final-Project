@@ -15,17 +15,17 @@
 
 ## 📋 Table of Contents
 
-1. [Overview](#overview)  
-2. [Features](#features)  
-3. [Tech Stack](#tech-stack)  
-4. [Project Structure](#project-structure)  
-5. [Installation](#installation)  
-6. [Configuration](#configuration)  
-7. [Database Setup](#database-setup)
-8. [Flask Environment](#flask-environment)
-9. [Running the App](#running-the-app)  
-10. [Usage](#usage)  
-11. [License & Acknowledgments](#license--acknowledgments)  
+1. [Overview](#-overview)  
+2. [Features](#-features)  
+3. [Tech Stack](#-tech-stack)  
+4. [Project Structure](#-project-structure)  
+5. [Installation](#-installation)  
+6. [Configuration](#-configuration)  
+7. [Database Setup](#-database-setup)
+8. [Flask Environment](#-flask-environment)
+9. [Running the App](#-running-the-app)  
+10. [Usage](#-usage)  
+11. [License & Acknowledgments](#-license--acknowledgments)  
 
 
 
