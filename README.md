@@ -2,8 +2,9 @@
 [![SQLite](https://img.shields.io/badge/SQLite-3.39.5-blue.svg)](https://www.sqlite.org/)
 [![Flask](https://img.shields.io/pypi/v/Flask.svg)](https://pypi.org/project/Flask/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](http://54.91.90.12/)
 [![Video Demo](https://img.shields.io/badge/Video%20Demo-YouTube-red?logo=youtube)](https://www.youtube.com/watch?v=-aG2pokxhwo)
+[![Screenshots](https://img.shields.io/badge/Screenshots-📸-blue)](https://imgur.com/a/Ohhli5y)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](http://54.91.90.12/)
 
 # 2WATCH
 
