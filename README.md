@@ -12,7 +12,9 @@
 #### Live Demo: [2WATCH](http://54.91.90.12/)
 #### Description: A social Flask app for film & TV lovers: explore upcoming releases, random scenes, build watchlists, tier‑rank titles, craft Top 10 lists and share profiles — powered by the TMDb & YouTube Data APIs.
 
-
+2WATCH makes real‑time API calls to TMDb and YouTube on each request,  
+ensuring your carousels, searches, tier lists and random scenes are always  
+pulled from the freshest data available—no extra work required!
 
 ## 📋 Table of Contents
 
@@ -146,7 +148,21 @@
    cp .env.example .env
    ```
 
-2. **Edit** `.env` and set your API keys:
+2. **Obtain** your API keys
+   
+   **TMDb API Key**
+      1. Create an account at https://www.themoviedb.org/
+      2. Go to Settings ▶ API at https://www.themoviedb.org/settings/api and fill out the request form
+      3. Copy your “v3 API Key” and paste it into TMDB_API_KEY in your .env
+  
+   **YouTube Data API Key**
+      1. Open Google Cloud Console: https://console.developers.google.com/
+      2. Create or select a project
+      3. In “APIs & Services ▶ Library”, enable the “YouTube Data API v3”
+      4. In “APIs & Services ▶ Credentials”, create an API Key
+      5. Paste that key into YOUTUBE_API_KEY in your .env
+
+3. **Edit** `.env` and set your API keys:
    ```bash
     TMDB_API_KEY=your_tmdb_api_key
     YOUTUBE_API_KEY=your_youtube_api_key
